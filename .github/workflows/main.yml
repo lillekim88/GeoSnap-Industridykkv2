@@ -1,0 +1,30 @@
+
+org.gradle.jvmargs=-Xmx4g -Dfile.encoding=UTF-8
+android.useAndroidX=true
+android.enableJetifier=true
+kotlin.code.style=official
+
+# GeoSnap Industridykk — Android v0.1.7-PROOF
+
+Denne PROOF-byggen viser tydelig at riktig versjon er installert:
+- App-navn: **GeoSnap Industridykk v0.1.7-PROOF**
+- HUD-linje øverst: **v0.1.7-PROOF**
+- Toast ved oppstart: **GeoSnap v0.1.7-PROOF**
+- Tannhjul oppe til høyre åpner **Innstillinger (PROOF)**
+
+## Bygg i GitHub Actions
+1. Last opp hele mappen til et GitHub-repo.
+2. Actions → **Android APK Builder (PROOF)** → **Run workflow** → `build_type = debug`.
+3. Etter grønt ✔ → nederst på kjøringen: **Artifacts** → last ned `GeoSnapIndustridykk-debug-apk` → `app-debug.apk`.
+4. Installer på telefonen (Filer → Installer ukjente apper).
+
+Når appen starter, skal du se toasten og HUD-linjen med `v0.1.7-PROOF`.
+
+
+pluginManagement { repositories { gradlePluginPortal(); google(); mavenCentral() } }
+dependencyResolutionManagement { repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS); repositories { google(); mavenCentral() } }
+rootProject.name='GeoSnapIndustridykk'
+include(':app')
+
+
+plugins { id 'com.android.application' version '8.5.2' apply false; id 'org.jetbrains.kotlin.android' version '1.9.24' apply false }
