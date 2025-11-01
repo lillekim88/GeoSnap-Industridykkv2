@@ -72,8 +72,9 @@ yarn install
 
 Opprett en `.env` fil i rotmappen:
 ```
-MAPS_API_KEY=din_google_maps_api_nøkkel
-LOCATION_SERVICE_URL=https://api.eksempel.no/location
+# Erstatt med dine egne API-nøkler
+MAPS_API_KEY=din_google_maps_api_nøkkel_her
+LOCATION_SERVICE_URL=https://api.example.com/location
 ```
 
 4. **Kjør applikasjonen**

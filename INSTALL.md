@@ -72,7 +72,8 @@ yarn install
 
 Create a `.env` file in the root directory:
 ```
-MAPS_API_KEY=your_google_maps_api_key
+# Replace with your actual API keys
+MAPS_API_KEY=your_google_maps_api_key_here
 LOCATION_SERVICE_URL=https://api.example.com/location
 ```
 
