@@ -1,30 +1,53 @@
 
-org.gradle.jvmargs=-Xmx4g -Dfile.encoding=UTF-8
-android.useAndroidX=true
-android.enableJetifier=true
-kotlin.code.style=official
+name: Android APK Builder (PROOF)
 
-# GeoSnap Industridykk — Android v0.1.7-PROOF
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
 
-Denne PROOF-byggen viser tydelig at riktig versjon er installert:
-- App-navn: **GeoSnap Industridykk v0.1.7-PROOF**
-- HUD-linje øverst: **v0.1.7-PROOF**
-- Toast ved oppstart: **GeoSnap v0.1.7-PROOF**
-- Tannhjul oppe til høyre åpner **Innstillinger (PROOF)**
+env:
+  JAVA_VERSION: '17'
 
-## Bygg i GitHub Actions
-1. Last opp hele mappen til et GitHub-repo.
-2. Actions → **Android APK Builder (PROOF)** → **Run workflow** → `build_type = debug`.
-3. Etter grønt ✔ → nederst på kjøringen: **Artifacts** → last ned `GeoSnapIndustridykk-debug-apk` → `app-debug.apk`.
-4. Installer på telefonen (Filer → Installer ukjente apper).
+jobs:
+  build:
+    runs-on: ubuntu-latest
 
-Når appen starter, skal du se toasten og HUD-linjen med `v0.1.7-PROOF`.
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ env.JAVA_VERSION }}
 
-pluginManagement { repositories { gradlePluginPortal(); google(); mavenCentral() } }
-dependencyResolutionManagement { repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS); repositories { google(); mavenCentral() } }
-rootProject.name='GeoSnapIndustridykk'
-include(':app')
+      - name: Grant execute permission for gradlew
+        run: chmod +x ./gradlew
 
+      - name: Install Android command-line tools and SDK components
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wget unzip lib32stdc++6 lib32z1
+          wget https://dl.google.com/android/repository/commandlinetools-linux-10406996_latest.zip -O cmdline-tools.zip
+          mkdir -p $HOME/Android/cmdline-tools
+          unzip -q cmdline-tools.zip -d $HOME/Android/cmdline-tools
+          export ANDROID_SDK_ROOT=$HOME/Android
+          yes | $HOME/Android/cmdline-tools/cmdline-tools/bin/sdkmanager --sdk_root=$HOME/Android "platform-tools" "platforms;android-33" "build-tools;33.0.2"
+        shell: bash
 
-plugins { id 'com.android.application' version '8.5.2' apply false; id 'org.jetbrains.kotlin.android' version '1.9.24' apply false }
+      - name: Set ANDROID_SDK_ROOT
+        run: echo "ANDROID_SDK_ROOT=$HOME/Android" > $GITHUB_ENV
+
+      - name: Build debug APK
+        run: ./gradlew assembleDebug --no-daemon
+        env:
+          JAVA_TOOL_OPTIONS: "-Xmx2g"
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: GeoSnapIndustridykk-debug-apk
+          path: app/build/outputs/apk/debug/*.apk
