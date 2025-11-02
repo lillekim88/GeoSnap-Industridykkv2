@@ -1,4 +1,19 @@
-
+            - navn: Designite inkrementell kodekvalitetsanalyse
+  # Du kan feste til den nøyaktige commiten eller versjonen.
+  # bruksområder: DesigniteTools/designite-incremental-analysis@c9ec3cf4d058aa09194f2285f3e8f299cfdfd66f
+  bruker: DesigniteTools/designite-incremental-analysis@v2.1.0
+  med:
+    # GitHub-token opprettet under utførelse av arbeidsflyt (satt til lesing og skriving)
+    github-token:
+    # Navn på utdatamappe for kodekvalitetsanalyse fra forrige commit
+    designite-output-old:
+    # Navn på mappe for utdata av kodekvalitetsanalyse fra gjeldende commit
+    designite-utgang-ny:
+    # Navn på arkiv
+    repo-navn:
+    # Verktøy brukt til kodeanalyse (dj eller dpy)
+    verktøynavn:
+          
 name: Android APK Builder (PROOF)
 
 on:
