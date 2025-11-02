@@ -13,6 +13,33 @@
     repo-navn:
     # Verktøy brukt til kodeanalyse (dj eller dpy)
     verktøynavn:
+                      - navn: Last opp en byggeartefakt
+  bruker: actions/upload-artefakt@v5.0.0
+  med:
+    # Artefaktnavn
+    navn: # valgfritt, standard er artefakt
+    # En fil, katalog eller jokertegnmønster som beskriver hva som skal lastes opp
+    sti:
+    # Ønsket oppførsel hvis ingen filer blir funnet ved hjelp av den oppgitte banen.
+Tilgjengelige alternativer:
+  warn: Send ut en advarsel, men ikke mislykkes med handlingen
+  feil: Handlingen mislykkes med en feilmelding
+  ignorer: Ikke skriv ut noen advarsler eller feil, handlingen mislykkes ikke
+
+    hvis-ingen-filer-funnet: # valgfritt, standard er warn
+    # Varigheten som artefakten utløper etter i dager. 0 betyr at standard oppbevaring brukes.
+Minimum 1 dag. Maksimum 90 dager med mindre det endres fra innstillingssiden for depotet.
+
+    oppbevaringsdager: # valgfritt
+    # Komprimeringsnivået Zlib skal bruke på artefaktarkivet. Verdien kan variere fra 0 til 9: - 0: Ingen komprimering - 1: Beste hastighet - 6: Standardkomprimering (samme som GNU Gzip) - 9: Beste komprimering Høyere nivåer vil gi bedre komprimering, men vil ta lengre tid å fullføre. For store filer som ikke lett kan komprimeres, anbefales en verdi på 0 for betydelig raskere opplastinger.
+
+    komprimeringsnivå: # valgfritt, standard er 6
+    # Hvis sann, vil en artefakt med et samsvarende navn bli slettet før en ny lastes opp. Hvis usann, vil handlingen mislykkes hvis en artefakt for det gitte navnet allerede finnes. Mislykkes ikke hvis artefakten ikke finnes.
+
+    overskriv: # valgfritt, standard er usann
+    # Hvis sann, vil skjulte filer bli inkludert i artefakten. Hvis usann, vil skjulte filer bli ekskludert fra artefakten.
+
+    include-hidden-files: # valgfritt, standard er false
           
 name: Android APK Builder (PROOF)
 
